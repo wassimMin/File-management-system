@@ -15,15 +15,6 @@ void parseInput(char* userInput,char* command, char* parameter){
         command[i] = tolower(command[i]);
     }
 }
-
-// Function to execute command 
-void executCommand(char* command,char* parameter){
-    if(strcmp(command,"create") == 0){
-        createFile(parameter);
-    }else{
-        printf("Executing command: %s \"%s\"\n", command, parameter);
-    }
-}
 // Function to handle invalid input
 void displayErrorMessage(){
     printf("Error: Invalid input\n");
@@ -40,6 +31,34 @@ void createFile(const char* filename){
     }
 }
 
+// Function Open File
+void openFile(const char* filename){
+    FILE* file = fopen(filename,"r");
+    if(file != NULL){
+
+        printf("File '%s' opened successfully.\n", filename);
+        char buffer[1000];
+        while(fgets(buffer,sizeof(buffer),file) != NULL){
+            printf("\n");
+            printf("%s",buffer);
+            printf("\n");
+        }
+        fclose(file);
+    }else{
+        printf("Error: Unable to open file '%s'.\n", filename);
+    }
+}
+
+// Function to execute command 
+void executCommand(char* command,char* parameter){
+    if(strcmp(command,"create") == 0){
+        createFile(parameter);
+    }else if(strcmp(command,"open") == 0){
+        openFile(parameter);
+    }else{
+        printf("Executing command: %s \"%s\"\n", command, parameter);
+    }
+}
 int main(){
     char userInput[100];
     char command[50];
