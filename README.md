@@ -1,6 +1,6 @@
 File Management System coded in C ,
  file operations : 
-Create File: Implement the functionality to create a new file in the file system.
+Create File: Implement the functionality to create a new file in the file system. '\n'
 Open File: Implement the functionality to open an existing file for reading or writing.
 Read from File: Implement the functionality to read data from an open file.
 Write to File: Implement the functionality to write data to an open file.
