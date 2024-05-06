@@ -48,17 +48,51 @@ void openFile(const char* filename){
         printf("Error: Unable to open file '%s'.\n", filename);
     }
 }
-
+// Function Wrine in file 
+void writeFile(const char* filename,const char* content){
+    FILE* file = fopen(filename,"a");
+    if(file != NULL){
+        fprintf(file,"%s\n",content);
+        fclose(file);
+        printf("Content written to file '%s'.\n",filename);
+    }else{
+        printf("Error: Unable to write to file '%s'. \n",filename);
+    }
+}
+// Delete File
+void deleteFile(char* filename){
+    if(remove(filename) == 0){
+        printf("File '%s' deleted successfully \n",filename);
+    }else{
+        printf("Error: Unable to delete file '%s'. \n",filename);
+    }
+}
 // Function to execute command 
 void executCommand(char* command,char* parameter){
     if(strcmp(command,"create") == 0){
         createFile(parameter);
     }else if(strcmp(command,"open") == 0){
         openFile(parameter);
+    }else if(strcmp(command,"write") == 0){
+        printf("Please Enter the content you wanna write the file. Press Enter on a blank line to finish : \n");
+        char content[1000];
+        content[0] = '\0';
+        char line[1000];
+        content[1] = '\n';
+        while(fgets(line,sizeof(line),stdin) != NULL){
+            if(strcmp(line,"\n") == 0 || line[0] == '\0'){
+                break;
+            }
+            strcat(content,line);
+        }
+        writeFile(parameter,content);
+    }else if(strcmp(command,"delete") == 0){
+        deleteFile(parameter);
     }else{
         printf("Executing command: %s \"%s\"\n", command, parameter);
     }
 }
+
 int main(){
     char userInput[100];
     char command[50];
